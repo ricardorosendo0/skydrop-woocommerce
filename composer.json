@@ -1,0 +1,29 @@
+{
+  "name": "skydrop/woocommerce",
+  "description": "Skydrop Plugin for Woocommerce",
+  "type": "library",
+  "version": "1.0.0",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Arnoldo Rodriguez",
+      "email": "rodriguezcolin@gmail.com"
+    }
+  ],
+  "keywords": [
+    "skydrop",
+    "shipping",
+    "woocommerce",
+    "wordpress"
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": ">=5.5",
+    "skydrop/php": "dev-master"
+  },
+  "autoload": {
+    "psr-4": {
+      "SkydropWC\\": "SkydropWC"
+    }
+  }
+}
