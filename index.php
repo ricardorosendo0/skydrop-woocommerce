@@ -20,27 +20,75 @@ function skydrop_shipping_method_init() {
        * @return void
        */
       public function __construct() {
-        $this->id = 'skydrop_shipping_method';
-        $this->title = __( 'skydrop same day' );
-        $this->method_description = __( 'Local deliveries as fast as 30 mins' );
-        $this->enabled = "yes"; // This can be added as an setting but for this example its forced enabled
-        $this->init();
-      }
+        $this->id = 'Skydrop Shipping Method';
+        $this->title = __( 'skydrop' );
+        $this->method_description = __( 'Entregas locales exprés' );
 
-      /**
-       * Init your settings
-       *
-       * @access public
-       * @return void
-       */
-      function init(){
         // Load the settings API
-        $this->init_form_fields(); // This is part of the settings API. Override the method to add your own settings
-        $this->init_settings(); // This is part of the settings API. Loads settings you previously init.
+        $this->init_form_fields();
+        $this->init_settings();
+
+        // Define user set variables
+        $this->enabled = $this->get_option('enabled');
 
         // Save settings in admin if you have any defined
         add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
       }
+
+      public function init_form_fields() {
+          $this->form_fields = array(
+              'enabled' => array(
+                  'title' => __('Enable/Disable', 'woocommerce'),
+                  'type' => 'checkbox',
+                  'label' =>  __('Enable Skydrop Carrier', 'woocommerce'),
+                  'default' => 'no',
+              ),
+              'api_key' => array(
+                  'title' => __('API Key', 'woocommerce'),
+                  'type' => 'text',
+              ),
+              'working_days' => array(
+                  'title' => __('Working Days', 'woocommerce'),
+                  'type' => 'multiselect',
+                  'options' => array(
+                      '0' => 'Sunday',
+                      '1' => 'Monday',
+                      '2' => 'Tuesday',
+                      '3' => 'Wednesday',
+                      '4' => 'Thursday',
+                      '5' => 'Friday',
+                      '6' => 'Saturday',
+                  ),
+              ),
+              'opening_time' => array(
+                  'title' => __('Opening Time', 'woocommerce'),
+                  'type' => 'text',
+                  'default' => '10:00',
+              ),
+              'closing_time' => array(
+                  'title' => __('Closing Time', 'woocommerce'),
+                  'type' => 'text',
+                  'default' => '22:00',
+              ),
+              'vehicle_type' => array(
+                  'title' => __('Vehicle Type', 'woocommerce'),
+                  'type' => 'select',
+                  'options' => array(
+                      'car' => 'Car',
+                  ),
+              ),
+              'service_type' => array(
+                  'title' => __('Service Types', 'woocommerce'),
+                  'type' => 'multiselect',
+                  'options' => array(
+                      'EExps' => 'Express',
+                      'Hoy' => 'Same Day',
+                      'next_day' => 'Next Day',
+                  ),
+              ),
+          );
+      }
+
 
       /**
        * calculate_shipping function.
