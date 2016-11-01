@@ -1,0 +1,3 @@
+[submodule "lib/Skydrop"]
+	path = lib/Skydrop
+	url = git@github.com:Skydropx/skydrop-php.git
