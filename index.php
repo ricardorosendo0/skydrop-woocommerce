@@ -164,6 +164,22 @@ function add_skydrop_shipping_method($methods) {
     return $methods;
 }
 
+add_action('woocommerce_payment_complete', 'skydrop_process_order', 10, 1);
+
+function skydrop_process_order($order_id) {
+    $order = new WC_Order( $order_id );
+    logger($order);
+    $myuser_id = (int)$order->user_id;
+    $user_info = get_userdata($myuser_id);
+    $items = $order->get_items();
+    foreach ($items as $item) {
+        if ($item['product_id']==24) {
+            // Do something clever
+        }
+    }
+    return $order_id;
+}
+
 // Logger function to write to debug.log file
 function logger($message) {
     if ( WP_DEBUG === true ) {
