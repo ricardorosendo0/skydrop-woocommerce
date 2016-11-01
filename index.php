@@ -132,15 +132,25 @@ function skydrop_shipping_method_init() {
        * @return void
        */
       public function calculate_shipping($package = array()) {
-          foreach($rates_json['rates'] as $rate) {
-              $rate = array(
-                  'id' => "{$rate['service_code']}-{$rate['vehicle_type']}",
-                  'label' => $rate['service_name'],
-                  'cost' => "{$rate['total_price']}",
+          try {
+              $helper = new \ShippingRateBuilder($this, $package['destination'], []);
+              $builder = $helper->builder;
+              $searcher = new \Skydrop\ShippingRate\Search($helper->builder);
+              $rates = $searcher->call();
+          } catch (\Exception $e) {
+              logger($e);
+              $rates = [];
+          }
+          foreach($rates as $rate) {
+              $code = json_decode(urldecode($rate->service_code));
+              $_rate = array(
+                  'id' => "skydrop_{$code->service_code}",
+                  'label' => "{$rate->service_name}",
+                  'cost' => "{$rate->total_price}",
+                  'meta_data' => $code,
                   'taxes' => false
               );
-
-              $this->add_rate($rate);
+              $this->add_rate($_rate);
           }
       }
     }
