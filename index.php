@@ -12,6 +12,8 @@ add_action('woocommerce_shipping_init', 'skydrop_shipping_method_init');
 
 function skydrop_shipping_method_init() {
   if (!class_exists('WC_Skydrop_Shipping_Method')) {
+    require_once dirname(__FILE__).'/lib/Skydrop/vendor/autoload.php';
+    require_once dirname(__FILE__).'/helpers/ShippingRateBuilder.php';
     class WC_Skydrop_Shipping_Method extends WC_Shipping_Method {
       /**
        * Constructor for your shipping class
