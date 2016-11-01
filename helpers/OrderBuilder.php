@@ -1,0 +1,68 @@
+<?php
+
+class OrderBuilder
+{
+    private $args;
+
+    public function getOrderBuilder($args = array())
+    {
+        $this->args = $args;
+        $builder = new Skydrop\Order\OrderBuilder(
+            [
+                'pickup'   => $this->_getPickup(),
+                'delivery' => $this->_getDelivery(),
+                'service'  => $this->_getService(),
+                'package'  => $this->_getPakcage()
+            ]
+        );
+        return $builder;
+    }
+
+    private function _getPickup()
+    {
+        return new \Skydrop\Order\Address([
+            'name'         => Configuration::get('PS_SHOP_NAME'),
+            'email'        => Configuration::get('PS_SHOP_EMAIL'),
+            'telephone'    => Configuration::get('PS_SHOP_PHONE'),
+            "municipality" => Configuration::get('PS_SHOP_CITY'),
+            "streetNameAndNumber" => Configuration::get('PS_SHOP_ADDR1'),
+            "neighborhood" => Configuration::get('PS_SHOP_ADDR2')
+        ]);
+    }
+
+    private function _getDelivery()
+    {
+        $address = $this->args['shippingAddress'];
+        return new \Skydrop\Order\Address([
+            'name'         => $address->firstname.' '.$address->lastname,
+            'email'        => '',
+            'streetNameAndNumber' => $address->address1,
+            'municipality' => $address->city,
+            'neighborhood' => $address->address2,
+            'telephone'    => $address->phone
+        ]);
+    }
+
+    private function _getService()
+    {
+        $service = $this->args['serviceCode'];
+        return new \Skydrop\Order\Service([
+            'serviceCode'  => $service['service_code'],
+            'vehicleType'  => $service['vehicle_type'],
+            'scheduleDate' => $service['schedule_date'],
+            'startingHour' => $service['starting_hour'],
+            'endingHour'   => $service['ending_hour']
+        ]);
+    }
+
+    private function _getPakcage()
+    {
+        $payment = $this->args['payment'];
+        if ($payment['method'] == 'cashondelivery') {
+            return new \Skydrop\Order\Package([
+                'codAmount' => $payment['amount']
+            ]);
+        }
+        return array();
+    }
+}
