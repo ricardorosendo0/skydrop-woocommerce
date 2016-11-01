@@ -39,57 +39,88 @@ function skydrop_shipping_method_init() {
       }
 
       public function init_form_fields() {
-          $this->form_fields = array(
-              'enabled' => array(
-                  'title' => __('Enable/Disable', 'woocommerce'),
-                  'type' => 'checkbox',
-                  'label' =>  __('Enable Skydrop Carrier', 'woocommerce'),
-                  'default' => 'no',
-              ),
-              'api_key' => array(
-                  'title' => __('API Key', 'woocommerce'),
-                  'type' => 'text',
-              ),
-              'working_days' => array(
-                  'title' => __('Working Days', 'woocommerce'),
-                  'type' => 'multiselect',
-                  'options' => array(
-                      '0' => 'Sunday',
-                      '1' => 'Monday',
-                      '2' => 'Tuesday',
-                      '3' => 'Wednesday',
-                      '4' => 'Thursday',
-                      '5' => 'Friday',
-                      '6' => 'Saturday',
-                  ),
-              ),
-              'opening_time' => array(
-                  'title' => __('Opening Time', 'woocommerce'),
-                  'type' => 'text',
-                  'default' => '10:00',
-              ),
-              'closing_time' => array(
-                  'title' => __('Closing Time', 'woocommerce'),
-                  'type' => 'text',
-                  'default' => '22:00',
-              ),
-              'vehicle_type' => array(
-                  'title' => __('Vehicle Type', 'woocommerce'),
-                  'type' => 'select',
-                  'options' => array(
-                      'car' => 'Car',
-                  ),
-              ),
-              'service_type' => array(
-                  'title' => __('Service Types', 'woocommerce'),
-                  'type' => 'multiselect',
-                  'options' => array(
-                      'EExps' => 'Express',
-                      'Hoy' => 'Same Day',
-                      'next_day' => 'Next Day',
-                  ),
-              ),
-          );
+        $this->form_fields = array(
+          'enabled' => array(
+            'title' => __('Enable/Disable', 'woocommerce'),
+            'type' => 'checkbox',
+            'label' =>  __('Enable Skydrop Carrier', 'woocommerce'),
+            'default' => 'no',
+          ),
+          'api_key' => array(
+            'title' => __('API Key', 'woocommerce'),
+            'type' => 'text',
+          ),
+          'working_days' => array(
+            'title' => __('Working Days', 'woocommerce'),
+            'type' => 'multiselect',
+            'options' => array(
+              '0' => 'Sunday',
+              '1' => 'Monday',
+              '2' => 'Tuesday',
+              '3' => 'Wednesday',
+              '4' => 'Thursday',
+              '5' => 'Friday',
+              '6' => 'Saturday',
+            ),
+          ),
+          'opening_time' => array(
+            'title' => __('Opening Time', 'woocommerce'),
+            'type' => 'text',
+            'default' => '10:00',
+          ),
+          'closing_time' => array(
+            'title' => __('Closing Time', 'woocommerce'),
+            'type' => 'text',
+            'default' => '22:00',
+          ),
+          'vehicle_type' => array(
+            'title' => __('Vehicle Type', 'woocommerce'),
+            'type' => 'select',
+            'options' => array(
+              'car' => 'Car',
+            ),
+          ),
+          'service_type' => array(
+            'title' => __('Service Types', 'woocommerce'),
+            'type' => 'multiselect',
+            'options' => array(
+              'EExps' => 'Express',
+              'Hoy' => 'Same Day',
+              'next_day' => 'Next Day',
+            ),
+          ),
+
+          'address1' => array(
+            'title' => __('Address 1', 'woocommerce'),
+            'type' => 'text',
+            'default' => '',
+          ),
+          'address2' => array(
+            'title' => __('Address 2', 'woocommerce'),
+            'type' => 'text',
+            'default' => '',
+          ),
+          'city' => array(
+            'title' => __('City', 'woocommerce'),
+            'type' => 'text',
+            'default' => '',
+          ),
+          'state' => array(
+            'title' => __('State', 'woocommerce'),
+            'type' => 'text',
+            'default' => '',
+          ),
+          'zip_code' => array(
+            'title' => __('Zip Code', 'woocommerce'),
+            'type' => 'text',
+            'default' => '',
+          ),
+          'country' => array(
+            'title' => __('Country', 'woocommerce'),
+            'type' => 'text',
+            'default' => '',
+          ),
+        );
       }
 
 
