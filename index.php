@@ -20,9 +20,9 @@ function skydrop_shipping_method_init() {
        * @return void
        */
       public function __construct() {
-        $this->id = 'Skydrop Shipping Method';
-        $this->title = __( 'skydrop' );
-        $this->method_description = __( 'Entregas locales exprés' );
+        $this->id = 'skydrop_shipping_method';
+        $this->method_title = __( 'Skydrop Shipping Method', 'woocommerce' );
+        $this->method_description = __( 'Entregas locales expres' );
 
         // Load the settings API
         $this->init_form_fields();
@@ -30,6 +30,7 @@ function skydrop_shipping_method_init() {
 
         // Define user set variables
         $this->enabled = $this->get_option('enabled');
+        $this->title   = $this->get_option( 'title' );
 
         // Save settings in admin if you have any defined
         add_action( 'woocommerce_update_options_shipping_' . $this->id, array( $this, 'process_admin_options' ) );
