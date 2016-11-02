@@ -21,25 +21,26 @@ class OrderBuilder
     private function _getPickup()
     {
         return new \Skydrop\Order\Address([
-            'name'         => Configuration::get('PS_SHOP_NAME'),
-            'email'        => Configuration::get('PS_SHOP_EMAIL'),
-            'telephone'    => Configuration::get('PS_SHOP_PHONE'),
-            "municipality" => Configuration::get('PS_SHOP_CITY'),
-            "streetNameAndNumber" => Configuration::get('PS_SHOP_ADDR1'),
-            "neighborhood" => Configuration::get('PS_SHOP_ADDR2')
+            'name'         => get_bloginfo('name'),
+            'email'        => get_bloginfo('admin_email'),
+            'telephone'    => $this->args['module']->get_option('phone'),
+            "municipality" => $this->args['module']->get_option('city'),
+            "streetNameAndNumber" => $this->args['module']->get_option('address1'),
+            "neighborhood" => $this->args['module']->get_option('address2')
         ]);
     }
 
     private function _getDelivery()
     {
         $address = $this->args['shippingAddress'];
+        logger($address);
         return new \Skydrop\Order\Address([
-            'name'         => $address->firstname.' '.$address->lastname,
-            'email'        => '',
-            'streetNameAndNumber' => $address->address1,
-            'municipality' => $address->city,
-            'neighborhood' => $address->address2,
-            'telephone'    => $address->phone
+            'name'         => $address['first_name'].' '.$address['last_name'],
+            'email'        => $address['email'],
+            'streetNameAndNumber' => $address['address_1'],
+            'municipality' => $address['city'],
+            'neighborhood' => $address['address_2'],
+            'telephone'    => $address['phone']
         ]);
     }
 
@@ -58,7 +59,7 @@ class OrderBuilder
     private function _getPakcage()
     {
         $payment = $this->args['payment'];
-        if ($payment['method'] == 'cashondelivery') {
+        if ($payment['method'] == 'cod') {
             return new \Skydrop\Order\Package([
                 'codAmount' => $payment['amount']
             ]);

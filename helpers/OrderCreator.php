@@ -1,53 +1,45 @@
 <?php
-require_once(dirname(__FILE__).'/../lib/Skydrop/vendor/autoload.php');
-require_once(dirname(__FILE__).'/../Helpers/OrderBuilder.php');
-require_once(dirname(__FILE__).'/../classes/SkydropServiceType.php');
 
-class OrderCreation
+class OrderCreator
 {
     private $module;
     private $order;
     private $address;
-    private $serviceCode;
+    private $service_code;
 
-    public function __construct($module)
+    public function __construct()
     {
-		$this->context = Context::getContext();
-        $this->module = $module;
-        $this->id_cart = (int)$this->context->cart->id;
+        $this->module = new WC_Skydrop_Shipping_Method();
     }
 
-    public function createOrder($params)
+    public function createOrder($order)
     {
-        if (
-            isset($params['newOrderStatus'])
-            && !$params['newOrderStatus']->paid
-        ) {
-            return;
-        }
+        $this->order = $order;
 
-        $this->order = new Order($params['id_order']);
-        if (!empty($this->order->getWsShippingNumber())) {
-            return;
+        logger($this->order->payment_method);
+        if ($this->order->payment_method != 'cod') {
+            return false;
         }
 
         $this->setServiceCode();
-        if (!$this->serviceCode) {
+        logger($this->service_code);
+        if (!$this->service_code) {
             return;
         }
 
-        $this->address = new Address($this->order->id_address_delivery);
+        $this->address = $this->order->get_address();
 
-        \Skydrop\Configs::setApiKey(Configuration::get('SKYDROP_CA_API_KEY'));
-        \Skydrop\Configs::setEnv(Configuration::get('SKYDROP_CA_ENV'));
+        \Skydrop\Configs::setApiKey($this->module->get_option('api_key'));
+        \Skydrop\Configs::setEnv($this->module->get_option('env'));
         try {
             $builder = $this->getOrderBuilder();
+            logger($builder);
             $skydropOrder = new \Skydrop\API\Order();
             $response = $skydropOrder->create($builder->toHash());
-            $this->order->setWsShippingNumber($response->tracking_url);
-            \SkydropServiceType::deleteServiceTypesByCartId($this->id_cart);
+            logger($response);
+            update_post_meta($this->order->id, 'tracking_url', $response->tracking_url);
         } catch (\Exception $e) {
-            $this->module->logger($e);
+            logger($e);
             \Skydrop\Configs::notifyErrbit($e, $builder->toHash());
             \Skydrop\Configs::notifySlack(json_encode($builder->toHash()));
         }
@@ -57,38 +49,25 @@ class OrderCreation
     {
         $builder = new \OrderBuilder();
         return $builder->getOrderBuilder([
+            'module' => $this->module,
             'shippingAddress' => $this->address,
-            'serviceCode' => $this->serviceCode,
+            'serviceCode' => $this->service_code,
             'payment' => [
-                'method' => $this->order->module,
-                'amount' => $this->order->total_paid
+                'method' => $this->order->payment_method,
+                'amount' => $this->order->order_total
             ],
         ]);
     }
 
     private function setServiceCode()
     {
-        $codes = $this->getCodes();
-        $carrierId = $this->order->id_carrier;
-        if ($carrierId == Configuration::get('SKYDROP_CA_SAME_DAY')) {
-            $this->serviceCode = $codes['Hoy'];
-        } else if ($carrierId == Configuration::get('SKYDROP_CA_NEXT_DAY')) {
-            $this->serviceCode = $codes['next_day'];
-        } else if ($carrierId == Configuration::get('SKYDROP_CA_EEXPS')) {
-            $this->serviceCode = $codes['EExps'];
-        } else {
-            $this->serviceCode = false;
+        $shipping_items = $this->order->get_items( 'shipping' );
+        foreach($shipping_items as $key => $val) {
+            if (in_array($val['method_id'], skydrop_shipping_methods())) {
+                $this->service_code = $val;
+                return;
+            }
         }
-    }
-
-    private function getCodes()
-    {
-        $results = \SkydropServiceType::getServiceTypesByCartId($this->id_cart);
-        $codes = [];
-        foreach($results as $row) {
-            $code = json_decode(urldecode($row->service_code), true);
-            $codes[$row->service_type] = $code;
-        }
-        return $codes;
+        $this->service_code = false;
     }
 }
