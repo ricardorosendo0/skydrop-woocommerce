@@ -33,7 +33,6 @@ class OrderBuilder
     private function _getDelivery()
     {
         $address = $this->args['shippingAddress'];
-        logger($address);
         return new \Skydrop\Order\Address([
             'name'         => $address['first_name'].' '.$address['last_name'],
             'email'        => $address['email'],

@@ -16,13 +16,11 @@ class OrderCreator
     {
         $this->order = $order;
 
-        logger($this->order->payment_method);
         if ($this->order->payment_method != 'cod') {
             return false;
         }
 
         $this->setServiceCode();
-        logger($this->service_code);
         if (!$this->service_code) {
             return;
         }
@@ -33,10 +31,8 @@ class OrderCreator
         \Skydrop\Configs::setEnv($this->module->get_option('env'));
         try {
             $builder = $this->getOrderBuilder();
-            logger($builder);
             $skydropOrder = new \Skydrop\API\Order();
             $response = $skydropOrder->create($builder->toHash());
-            logger($response);
             update_post_meta($this->order->id, 'tracking_url', $response->tracking_url);
         } catch (\Exception $e) {
             logger($e);
