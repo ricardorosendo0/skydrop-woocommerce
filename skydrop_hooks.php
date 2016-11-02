@@ -1,19 +1,15 @@
 <?php
 
-function skydrop_shipping_methods() {
-    return [
-        'skydrop_Hoy',
-        'skydrop_next_day',
-        'skydrop_EExps',
-    ];
-}
-
 add_action('woocommerce_payment_complete', 'skydrop_payment_complete', 10, 1);
 
 function skydrop_payment_complete($order_id) {
     logger('-----------------------------------------------------------------');
     logger('skydrop_payment_complete');
+
     $order = new WC_Order( $order_id );
+    $helper = new \OrderCreator();
+    logger($helper->createOrder($order));
+
     return $order_id;
 }
 
@@ -29,10 +25,9 @@ function skydrop_checkout_order_processed($order_id) {
     logger('-----------------------------------------------------------------');
     logger('skydrop_checkout_order_processed');
 
-
     $order = new WC_Order( $order_id );
-    $helper = new \OrderCreator(null);
-    $helper->createOrder($order);
+    $helper = new \OrderCreator();
+    logger($helper->createOrder($order));
 
     return $order_id;
 }
@@ -41,5 +36,26 @@ function skydrop_checkout_order_processed($order_id) {
 add_action('woocommerce_new_order', 'skydrop_new_order', 1, 1);
 
 function skydrop_new_order($order_id) {
+    return $order_id;
+}
+
+add_action(
+    'woocommerce_order_status_changed',
+    'skydrop_order_status_changed',
+    1,
+    3
+);
+
+function skydrop_order_status_changed($order_id, $old_status, $new_status) {
+    logger('-----------------------------------------------------------------');
+    logger('skydrop_order_status_changed');
+
+    $order = new WC_Order( $order_id );
+
+    if ($new_status == 'processing') {
+        $helper = new \OrderCreator();
+        logger($helper->createOrder($order));
+    }
+
     return $order_id;
 }
