@@ -17,12 +17,15 @@ class OrderCreator
         $this->order = $order;
 
         // if order has tracking url should not create new order
-        if (get_post_meta($order_id, 'skydrop_tracking_url', true)) {
-            return;
+        if (get_post_meta($this->order->id, 'skydrop_tracking_url', true)) {
+            return 'Order Already created in Skydrop!';
         }
 
-        if ($this->order->payment_method != 'cod') {
-            return false;
+        if (
+            $this->order->payment_method != 'cod'
+            && $this->order->get_status() != 'processing'
+        ) {
+            return 'Order not Cash On Delivery or in Processing status!';
         }
 
         $this->setServiceCode();
@@ -43,6 +46,7 @@ class OrderCreator
                 'skydrop_tracking_url',
                 $response->tracking_url
             );
+            return 'Order created successfuly!';
         } catch (\Exception $e) {
             logger($e);
             \Skydrop\Configs::notifyErrbit($e, $builder->toHash());
@@ -66,13 +70,22 @@ class OrderCreator
 
     private function setServiceCode()
     {
+        $skydrop_services = $this->skydrop_shipping_methods();
         $shipping_items = $this->order->get_items( 'shipping' );
         foreach($shipping_items as $key => $val) {
-            if (in_array($val['method_id'], skydrop_shipping_methods())) {
+            if (in_array($val['method_id'], $skydrop_services)) {
                 $this->service_code = $val;
                 return;
             }
         }
         $this->service_code = false;
+    }
+
+    private function skydrop_shipping_methods() {
+        return [
+            'skydrop_Hoy',
+            'skydrop_next_day',
+            'skydrop_EExps',
+        ];
     }
 }
