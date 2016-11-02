@@ -9,7 +9,7 @@ class OrderCreator
 
     public function __construct()
     {
-        $this->module = new WC_Skydrop_Shipping_Method();
+        $this->module = WC_Skydrop_Shipping_Method::getInstance();
     }
 
     public function createOrder($order)
@@ -35,8 +35,7 @@ class OrderCreator
 
         $this->address = $this->order->get_address();
 
-        \Skydrop\Configs::setApiKey($this->module->get_option('api_key'));
-        \Skydrop\Configs::setEnv($this->module->get_option('env'));
+        SkydropConfigs::setDefaultConfigs();
         try {
             $builder = $this->getOrderBuilder();
             $skydropOrder = new \Skydrop\API\Order();
