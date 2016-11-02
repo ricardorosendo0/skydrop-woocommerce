@@ -16,6 +16,11 @@ class OrderCreator
     {
         $this->order = $order;
 
+        // if order has tracking url should not create new order
+        if (get_post_meta($order_id, 'skydrop_tracking_url', true)) {
+            return;
+        }
+
         if ($this->order->payment_method != 'cod') {
             return false;
         }
@@ -33,7 +38,11 @@ class OrderCreator
             $builder = $this->getOrderBuilder();
             $skydropOrder = new \Skydrop\API\Order();
             $response = $skydropOrder->create($builder->toHash());
-            update_post_meta($this->order->id, 'tracking_url', $response->tracking_url);
+            update_post_meta(
+                $this->order->id,
+                'skydrop_tracking_url',
+                $response->tracking_url
+            );
         } catch (\Exception $e) {
             logger($e);
             \Skydrop\Configs::notifyErrbit($e, $builder->toHash());
