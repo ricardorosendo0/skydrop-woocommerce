@@ -6,7 +6,8 @@ class OrderBuilder
 
     public function getOrderBuilder($args = array())
     {
-        $this->args = $args;
+        $this->args   = $args;
+        $this->module = WC_Skydrop_Shipping_Method::getInstance();
         $builder = new Skydrop\Order\OrderBuilder(
             [
                 'pickup'   => $this->_getPickup(),
@@ -23,10 +24,12 @@ class OrderBuilder
         return new \Skydrop\Order\Address([
             'name'         => get_bloginfo('name'),
             'email'        => get_bloginfo('admin_email'),
-            'telephone'    => $this->args['module']->get_option('phone'),
-            "municipality" => $this->args['module']->get_option('city'),
-            "streetNameAndNumber" => $this->args['module']->get_option('address1'),
-            "neighborhood" => $this->args['module']->get_option('address2')
+            'telephone'    => $this->module->get_option('phone'),
+            "municipality" => $this->module->get_option('city'),
+            "streetNameAndNumber" => $this->module->get_option('address1'),
+            "neighborhood" => $this->module->get_option('address2'),
+            "lat"          => $this->module->get_option('lat'),
+            "lng"          => $this->module->get_option('lng')
         ]);
     }
 

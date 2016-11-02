@@ -2,15 +2,9 @@
 
 class OrderCreator
 {
-    private $module;
     private $order;
     private $address;
     private $service_code;
-
-    public function __construct()
-    {
-        $this->module = WC_Skydrop_Shipping_Method::getInstance();
-    }
 
     public function createOrder($order)
     {
@@ -57,7 +51,6 @@ class OrderCreator
     {
         $builder = new \OrderBuilder();
         return $builder->getOrderBuilder([
-            'module' => $this->module,
             'shippingAddress' => $this->address,
             'serviceCode' => $this->service_code,
             'payment' => [
