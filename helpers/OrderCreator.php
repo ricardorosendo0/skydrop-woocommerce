@@ -70,22 +70,14 @@ class OrderCreator
 
     private function setServiceCode()
     {
-        $skydrop_services = $this->skydrop_shipping_methods();
+        $str = 'skydrop_';
         $shipping_items = $this->order->get_items( 'shipping' );
         foreach($shipping_items as $key => $val) {
-            if (in_array($val['method_id'], $skydrop_services)) {
+            if (substr($val['method_id'], 0, strlen($str)) == $str) {
                 $this->service_code = $val;
                 return;
             }
         }
         $this->service_code = false;
-    }
-
-    private function skydrop_shipping_methods() {
-        return [
-            'skydrop_Hoy',
-            'skydrop_next_day',
-            'skydrop_EExps',
-        ];
     }
 }
