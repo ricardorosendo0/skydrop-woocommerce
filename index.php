@@ -20,7 +20,11 @@ function logger($message) {
     }
 }
 
+require_once dirname(__FILE__).'/lib/Skydrop/vendor/autoload.php';
+require_once dirname(__FILE__).'/helpers/SkydropConfigs.php';
+require_once dirname(__FILE__).'/helpers/ShippingRateBuilder.php';
 require_once dirname(__FILE__).'/helpers/OrderBuilder.php';
 require_once dirname(__FILE__).'/helpers/OrderCreator.php';
+require_once dirname(__FILE__).'/helpers/ProductsTags.php';
 require_once dirname(__FILE__).'/skydrop_shipping_method.php';
 require_once dirname(__FILE__).'/skydrop_hooks.php';
