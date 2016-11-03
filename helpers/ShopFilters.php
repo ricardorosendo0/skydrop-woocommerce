@@ -22,6 +22,6 @@ class ShopFilters
             );
             $filters[] = $filter;
         }
-        return $filters
+        return $filters;
     }
 }

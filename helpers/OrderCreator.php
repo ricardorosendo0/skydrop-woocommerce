@@ -25,6 +25,7 @@ class OrderCreator
             logger($e);
             \Skydrop\Configs::notifyErrbit($e, $builder->toHash());
             \Skydrop\Configs::notifySlack(json_encode($builder->toHash()));
+            return 'Error, Order not created!';
         }
     }
 
@@ -85,5 +86,6 @@ class OrderCreator
             $this->error = 'Shipping method not Skydrop!';
             return;
         }
+        return true;
     }
 }
