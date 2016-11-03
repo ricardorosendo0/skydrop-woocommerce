@@ -52,8 +52,9 @@ function skydrop_shipping_method_init() {
                         'default' => 'no',
                     ),
                     'api_key' => array(
-                        'title' => __('API Key', 'woocommerce'),
-                        'type' => 'text',
+                        'title'    => __('API Key', 'woocommerce'),
+                        'type'     => 'text',
+                        'required' => true,
                     ),
                     'env' => array(
                         'title' => __('Environment', 'woocommerce'),
@@ -64,8 +65,8 @@ function skydrop_shipping_method_init() {
                         ),
                     ),
                     'working_days' => array(
-                        'title' => __('Working Days', 'woocommerce'),
-                        'type' => 'multiselect',
+                        'title'    => __('Working Days', 'woocommerce'),
+                        'type'     => 'multiselect',
                         'options' => array(
                             '0' => 'Sunday',
                             '1' => 'Monday',
@@ -75,16 +76,20 @@ function skydrop_shipping_method_init() {
                             '5' => 'Friday',
                             '6' => 'Saturday',
                         ),
+                        'default'  => ['1','2','3','4','5'],
+                        'required' => true,
                     ),
                     'opening_time' => array(
                         'title' => __('Opening Time', 'woocommerce'),
                         'type' => 'text',
                         'default' => '10:00',
+                        'required' => true,
                     ),
                     'closing_time' => array(
                         'title' => __('Closing Time', 'woocommerce'),
                         'type' => 'text',
                         'default' => '22:00',
+                        'required' => true,
                     ),
                     'vehicle_type' => array(
                         'title' => __('Vehicle Type', 'woocommerce'),
@@ -92,6 +97,7 @@ function skydrop_shipping_method_init() {
                         'options' => array(
                             'car' => 'Car',
                         ),
+                        'required' => true,
                     ),
                     'service_type' => array(
                         'title' => __('Service Types', 'woocommerce'),
@@ -101,6 +107,8 @@ function skydrop_shipping_method_init() {
                             'Hoy' => 'Same Day',
                             'next_day' => 'Next Day',
                         ),
+                        'default'  => ['EExps', 'Hoy', 'next_day'],
+                        'required' => true,
                     ),
                     'product_tag_rule' => array(
                         'title' => __('Products With Tag - Tag Rule', 'woocommerce'),
@@ -121,41 +129,49 @@ function skydrop_shipping_method_init() {
                         'title' => __('Address 1', 'woocommerce'),
                         'type' => 'text',
                         'default' => '',
+                        'required' => true,
                     ),
                     'address2' => array(
                         'title' => __('Address 2', 'woocommerce'),
                         'type' => 'text',
                         'default' => '',
+                        'required' => true,
                     ),
                     'city' => array(
                         'title' => __('City', 'woocommerce'),
                         'type' => 'text',
                         'default' => '',
+                        'required' => true,
                     ),
                     'state' => array(
                         'title' => __('State', 'woocommerce'),
                         'type' => 'text',
-                        'default' => '',
+                        'default' => 'Nuevo Leon',
+                        'required' => true,
                     ),
                     'zip_code' => array(
                         'title' => __('Zip Code', 'woocommerce'),
                         'type' => 'text',
                         'default' => '',
+                        'required' => true,
                     ),
                     'country' => array(
                         'title' => __('Country', 'woocommerce'),
                         'type' => 'text',
-                        'default' => '',
+                        'default' => 'Mexico',
+                        'required' => true,
                     ),
                     'lat' => array(
                         'title' => __('Latitude', 'woocommerce'),
                         'type' => 'text',
                         'default' => '',
+                        'required' => true,
                     ),
                     'lng' => array(
                         'title' => __('Longitude', 'woocommerce'),
                         'type' => 'text',
                         'default' => '',
+                        'required' => true,
                     ),
                 );
             }
