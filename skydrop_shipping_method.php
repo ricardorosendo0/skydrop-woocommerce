@@ -170,23 +170,31 @@ function skydrop_shipping_method_init() {
              */
             public function calculate_shipping($package = array())
             {
-                ;
                 try {
-                    SkydropConfigs::setDefaultConfigs();
-                    SkydropConfigs::setRules();
-                    SkydropConfigs::setFilters();
-                    $helper = new \ShippingRateBuilder(
-                        $this,
-                        $package['destination'],
-                        ProductsTags::getProductsTags($package)
-                    );
-                    $builder = $helper->builder;
-                    $searcher = new \Skydrop\ShippingRate\Search($helper->builder);
-                    $rates = $searcher->call();
+                    SkydropConfigs::setup();
+                    $rates = $this->get_raw_rates($package);
                 } catch (\Exception $e) {
                     logger($e);
                     $rates = [];
                 }
+
+                $this->map_rates($rates);
+            }
+
+            private function get_raw_rates($package)
+            {
+                $helper = new \ShippingRateBuilder(
+                    $this,
+                    $package['destination'],
+                    ProductsTags::getProductsTags($package)
+                );
+                $builder = $helper->builder;
+                $searcher = new \Skydrop\ShippingRate\Search($helper->builder);
+                return $searcher->call();
+            }
+
+            private function map_rates($rates)
+            {
                 foreach($rates as $rate) {
                     $code = json_decode(urldecode($rate->service_code));
                     $_rate = array(

@@ -21,6 +21,9 @@ function logger($message) {
 }
 
 require_once dirname(__FILE__).'/lib/Skydrop/vendor/autoload.php';
+require_once dirname(__FILE__).'/helpers/ShopRules.php';
+require_once dirname(__FILE__).'/helpers/ShopFilters.php';
+require_once dirname(__FILE__).'/helpers/ShopModifiers.php';
 require_once dirname(__FILE__).'/helpers/SkydropConfigs.php';
 require_once dirname(__FILE__).'/helpers/ShippingRateBuilder.php';
 require_once dirname(__FILE__).'/helpers/OrderBuilder.php';
