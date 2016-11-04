@@ -16,6 +16,8 @@
         "php-vcr/php-vcr": "^1.2"
     },
     "autoload": {
-        "classmap": ["validations/", "helpers/"]
+    },
+    "autoload-dev": {
+        "files": ["tests/run.php"]
     }
 }
