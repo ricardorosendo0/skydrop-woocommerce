@@ -5,7 +5,7 @@ class ProductsTags
     public static function getProductsTags($package)
     {
         $products = [];
-        if (!is_array($package['contents'])) {
+        if (is_array($package['contents'])) {
             foreach($package['contents'] as $key => $val) {
                 $product_tags = get_the_terms($val['product_id'], 'product_tag');
                 $tags = [];
