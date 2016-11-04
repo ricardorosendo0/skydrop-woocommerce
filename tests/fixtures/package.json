@@ -1,0 +1,29 @@
+{
+    "contents": {
+        "7f39f8317fbdb1988ef4c628eba02591": {
+            "product_id": 61,
+            "variation_id": 0,
+            "variation": [],
+            "quantity": 1,
+            "line_total": 230,
+            "line_tax": 0,
+            "line_subtotal": 230,
+            "line_subtotal_tax": 0,
+            "line_tax_data": {
+                "total": [],
+                "subtotal": []
+            }
+        }
+
+    },
+
+    "destination": {
+        "country": "MX",
+        "state": "Nuevo Leon",
+        "postcode": 66290,
+        "city": "San Pedro Garza García",
+        "address": "Notre Dame 115-A",
+        "address_2": "Valle de San Ángel"
+    }
+
+}
