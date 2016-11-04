@@ -13,7 +13,7 @@ trait skydropFormValidation
 	 */
     public function validate_text_field( $key, $value ) {
         $field = $this->get_form_fields()[$key];
-        if ( $field['required'] && empty( $value ) ) {
+        if ( isset($field['required']) && $field['required'] && empty( $value ) ) {
             throw new Exception("{$field['title']} value is empty!");
         }
         else {
@@ -30,7 +30,7 @@ trait skydropFormValidation
 	 */
 	public function validate_select_field( $key, $value ) {
         $field = $this->get_form_fields()[$key];
-        if ( $field['required'] && empty( $value ) ) {
+        if ( isset($field['required']) && $field['required'] && empty( $value ) ) {
             throw new Exception("{$field['title']} is required!");
         }
         else {
@@ -47,7 +47,7 @@ trait skydropFormValidation
      */
     public function validate_multiselect_field( $key, $value ) {
         $field = $this->get_form_fields()[$key];
-        if ( $field['required'] && empty( $value ) ) {
+        if ( isset($field['required']) && $field['required'] && empty( $value ) ) {
             throw new Exception("You have to choose at least one {$field['title']}!");
         }
         else {
