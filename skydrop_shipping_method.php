@@ -5,6 +5,7 @@ add_action('woocommerce_shipping_init', 'skydrop_shipping_method_init');
 function skydrop_shipping_method_init() {
     if (!class_exists('WC_Skydrop_Shipping_Method')) {
         class WC_Skydrop_Shipping_Method extends WC_Shipping_Method {
+            use skydropFormValidation;
             public static $instance;
 
             public static function getInstance()
@@ -41,6 +42,16 @@ function skydrop_shipping_method_init() {
                 );
 
                 self::$instance = $this;
+            }
+            /**
+             * Processes and saves options.
+             * If there is an error thrown, will continue to save and validate fields, but will leave the erroring field out.
+             * @return bool was anything saved?
+             */
+            public function process_admin_options() {
+                $parent = parent::process_admin_options();
+                $this->display_errors();
+                return $parent;
             }
 
             public function init_form_fields() {
