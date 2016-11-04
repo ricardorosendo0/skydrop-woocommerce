@@ -1,29 +1,18 @@
 {
-  "name": "skydrop/woocommerce",
-  "description": "Skydrop Plugin for Woocommerce",
-  "type": "library",
-  "version": "1.0.0",
-  "license": "MIT",
-  "authors": [
-    {
-      "name": "Arnoldo Rodriguez",
-      "email": "rodriguezcolin@gmail.com"
+    "name": "skydrop/woocommerce",
+    "description": "Skydrop Plugin for WooCommerce",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yaser Almasri",
+            "email": "yaser@masys.co"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": "5.5.*",
+        "php-vcr/php-vcr": "^1.2"
     }
-  ],
-  "keywords": [
-    "skydrop",
-    "shipping",
-    "woocommerce",
-    "wordpress"
-  ],
-  "minimum-stability": "dev",
-  "require": {
-    "php": ">=5.5",
-    "skydrop/php": "dev-master"
-  },
-  "autoload": {
-    "psr-4": {
-      "SkydropWC\\": "SkydropWC"
-    }
-  }
 }
