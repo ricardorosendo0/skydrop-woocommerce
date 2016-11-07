@@ -3,7 +3,7 @@ use PHPUnit\Framework\TestCase;
 
 class OrderCreatorTest extends TestCase
 {
-    public function testCreateOrder()
+    public function testCreateOrderSuccessfuly()
     {
         \VCR\VCR::configure()->setCassettePath(getcwd().'/tests/VCR');
         \VCR\VCR::turnOn();
