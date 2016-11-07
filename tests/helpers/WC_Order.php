@@ -5,10 +5,11 @@ class WC_Order
     public $id = 73;
     public $payment_method = 'cod';
     public $order_total = 140.0;
+    public $status = 'processing';
 
     public function get_status()
     {
-        return 'processing';
+        return $this->status;
     }
 
     public function get_address()
