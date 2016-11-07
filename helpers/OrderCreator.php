@@ -23,19 +23,19 @@ class OrderCreator
             return 'Order created successfuly!';
         } catch (\Exception $e) {
             logger($e);
-            \Skydrop\Configs::notifyErrbit($e, $builder->toHash());
-            \Skydrop\Configs::notifySlack(json_encode($builder->toHash()));
+            \Skydrop\Configs::notifyErrbit($e, $this->builder->toHash());
+            \Skydrop\Configs::notifySlack(json_encode($this->builder->toHash()));
             return 'Error, Order not created!';
         }
     }
 
     private function createOrder()
     {
-        $builder = $this->getOrderBuilder();
+        $this->builder = $this->getOrderBuilder();
         $skydropOrder = new \Skydrop\API\Order();
-        $response = $skydropOrder->create($builder->toHash());
+        $response = $skydropOrder->create($this->builder->toHash());
         update_post_meta(
-            $this->order->get_id(), 'skydrop_tracking_url', $response->tracking_url
+            $this->order->id, 'skydrop_tracking_url', $response->tracking_url
         );
     }
 
@@ -46,7 +46,7 @@ class OrderCreator
             'shippingAddress' => $this->address,
             'serviceCode' => $this->service_code,
             'payment' => [
-                'method' => $this->order->get_payment_method(),
+                'method' => $this->order->payment_method,
                 'amount' => $this->order->order_total
             ],
         ]);
@@ -68,13 +68,14 @@ class OrderCreator
     private function orderEligibaleForSkydrop()
     {
         // if order has tracking url should not create new order
-        if (get_post_meta($this->order->get_id(), 'skydrop_tracking_url', true)) {
+        if (get_post_meta($this->order->id, 'skydrop_tracking_url', true)) {
             $this->error = 'Order Already created in Skydrop!';
             return;
         }
 
+        logger($this->order->payment_method);
         if (
-            $this->order->get_payment_method() != 'cod'
+            $this->order->payment_method != 'cod'
             && $this->order->get_status() != 'processing'
         ) {
             $this->error = 'Order not Cash On Delivery or in Processing status!';
