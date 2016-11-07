@@ -11,13 +11,14 @@ class WC_Shipping_Method
         switch($option) {
         case 'vehicle_type':
             return 'car';
-            break;
         case 'service_type':
             return ['Hoy'];
-            break;
+        case 'product_tag_rule':
+            return 'all';
+        case 'product_tag_name':
+            return 'skydrop';
         default:
             return '';
-            break;
         }
     }
 }
