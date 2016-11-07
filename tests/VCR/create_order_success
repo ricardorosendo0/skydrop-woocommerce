@@ -1,0 +1,35 @@
+
+-
+    request:
+        method: POST
+        url: 'http://54.191.139.107/api/v2/orders'
+        headers:
+            Host: 54.191.139.107
+            Expect: null
+            Accept-Encoding: null
+            Authorization: abcdefghijk
+            Content-Type: application/json
+            User-Agent: 'GuzzleHttp/6.2.1 curl/7.43.0 PHP/7.1.0RC3'
+            Accept: null
+        body: '{"pickup":{"name":"test attr","email":"test attr","street_name_and_number":"Rio Guadalquivir 422-A","municipality":"San Pedro Garza Garcia","neighborhood":"Del Valle","telephone":"12345678","lat":"25.658517","lng":"-100.357239"},"delivery":{"name":"Yaser Almasri","email":"test@masys.co","street_name_and_number":"Notre Dame 115-A","municipality":"San Pedro Garza Garc\u00eda","neighborhood":"Valle de San \u00c1ngel","telephone":"018180114330","lat":"","lng":""},"service":{"service_code":"EExps","vehicle_type":"car","schedule_date":"2016-11-07","starting_hour":"16:39","ending_hour":"17:13"},"package":{"cash_on_delivery":"true","cod_amount":"140"}}'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Date: 'Mon, 07 Nov 2016 22:49:36 GMT'
+            Server: 'Apache/2.4.7 (Ubuntu)'
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            X-Frame-Options: SAMEORIGIN
+            X-XSS-Protection: '1; mode=block'
+            X-Content-Type-Options: nosniff
+            X-Runtime: '0.153753'
+            X-Request-Id: a17f7878-1eca-4e3a-bc26-65bedcbb7ea4
+            X-Powered-By: 'Phusion Passenger 5.0.18'
+            Set-Cookie: 'request_method=POST; path=/'
+            ETag: '"cc39a399b27d7d6e9ceb2d74cf07cf41"'
+            Status: '201 Created'
+            Transfer-Encoding: chunked
+            Content-Type: 'application/json; charset=utf-8'
+        body: '{"ticket":"S112173","tracking_url":"http://www.skydrop.com.mx/track/NjEwMTIxNDYwNjM=","schedule_date":"2016-11-07"}'

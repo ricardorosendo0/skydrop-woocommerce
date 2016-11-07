@@ -16,3 +16,18 @@ function get_the_terms($product_id, $str)
 function __($string, $plugin = "")
 {
 }
+
+function get_post_meta($order_id, $attr, $unique)
+{
+    return false;
+}
+
+function update_post_meta($order_id, $attr, $value)
+{
+    var_dump($value);
+}
+
+function get_bloginfo($attr)
+{
+    return 'test attr';
+}
