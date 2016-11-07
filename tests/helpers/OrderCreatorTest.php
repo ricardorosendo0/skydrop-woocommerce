@@ -47,4 +47,20 @@ class OrderCreatorTest extends TestCase
         \VCR\VCR::eject();
         \VCR\VCR::turnOff();
     }
+
+    public function testCreateOrderCompleted()
+    {
+        \VCR\VCR::configure()->setCassettePath(getcwd().'/tests/VCR');
+        \VCR\VCR::turnOn();
+        \VCR\VCR::insertCassette('create_order_completed');
+        $order = new WC_Order();
+        $order->payment_method = 'conektacard';
+        $order->status = 'processing';
+        $creator = new OrderCreator();
+        $result = $creator->create($order);
+
+        $this->assertEquals('Order created successfuly!', $result);
+        \VCR\VCR::eject();
+        \VCR\VCR::turnOff();
+    }
 }
