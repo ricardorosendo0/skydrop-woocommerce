@@ -1,7 +1,11 @@
-<img src="http://www.masys.co/skydrop/Skydrop-purple.png" alt="Skydrop" />
-# Skydrop Plugin for WooCommerce
+<img src="http://skydrop-development.s3.amazonaws.com/plugins/Skydrop-purple.png" alt="Skydrop" />
+# Skydrop Plugin for WooCommerce 2.x
+Preparing Shop
+--------------
 
-## Plugin Installation
+
+Plugin Installation
+-------------------
 - Downdload the plugin from [Here](http://skydrop-development.s3.amazonaws.com/plugins/skydrop-woocommerce-0.1.2.zip) or clone it by typing this command in your terminal:
 
 ```
@@ -11,17 +15,22 @@ git clone --recursive git@github.com:Skydropx/skydrop-woocommerce.git
 - upload the zip file to `wp-content -> plugins` in your server, and extract it.
 - From Admin panel, got to `Plugins -> Installed Plugins`, search for `skydrop-woocommerce` plugin and activate it.
 
-## Plugin Configuration
+<a href="http://skydrop-development.s3.amazonaws.com/plugins/w/activate.png" target="_blank"><img src="http://skydrop-development.s3.amazonaws.com/plugins/w/activate.png" alt="Drawing" style="width: 500px;"/></a>
 
+
+Plugin Configuration
+--------------------
 - From Admin panel, got to `WooCommerce -> Settings -> Shipping` and click on `Skydrop Shipping Method`.
 - if you need help to get your shop latitude and longitude, go to [latlong.net](http://www.latlong.net/) and type your shop address.
 
+Assigning tags to products
+--------------------------
+- Go to `Products`, choose a product and click on `Edit`.
+- From the right panel, Go to `Product Tags` tab.
+- Type the tag name and click `Add`.
+- Click on `Update` to save product.
 
-
-
-
-
-
+<a href="http://skydrop-development.s3.amazonaws.com/plugins/w/product-tag.png" target="_blank"><img src="http://skydrop-development.s3.amazonaws.com/plugins/w/product-tag.png" alt="Drawing" style="width: 100px;"/></a>
 
 License
 -------
