@@ -15,7 +15,7 @@ git clone --recursive git@github.com:Skydropx/skydrop-woocommerce.git
 - upload the zip file to `wp-content -> plugins` in your server, and extract it.
 - From Admin panel, got to `Plugins -> Installed Plugins`, search for `skydrop-woocommerce` plugin and activate it.
 
-<a href="http://skydrop-development.s3.amazonaws.com/plugins/w/activate.png" target="_blank"><img src="http://skydrop-development.s3.amazonaws.com/plugins/w/activate.png" alt="Drawing" style="width: 500px;"/></a>
+<a href="http://skydrop-development.s3.amazonaws.com/plugins/w/activate.png" target="_blank"><img src="http://skydrop-development.s3.amazonaws.com/plugins/w/activate.png" alt="Drawing" width="500px"/></a>
 
 
 Plugin Configuration
@@ -30,7 +30,7 @@ Assigning tags to products
 - Type the tag name and click `Add`.
 - Click on `Update` to save product.
 
-<a href="http://skydrop-development.s3.amazonaws.com/plugins/w/product-tag.png" target="_blank"><img src="http://skydrop-development.s3.amazonaws.com/plugins/w/product-tag.png" alt="Drawing" style="width: 100px;"/></a>
+<a href="http://skydrop-development.s3.amazonaws.com/plugins/w/product-tag.png" target="_blank"><img src="http://skydrop-development.s3.amazonaws.com/plugins/w/product-tag.png" alt="Drawing" width="100px"/></a>
 
 License
 -------
