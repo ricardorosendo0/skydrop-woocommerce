@@ -2,7 +2,7 @@
 # Skydrop Plugin for WooCommerce
 
 ## Plugin Installation
-- Downdload the plugin from [Here]() or clone it by typing this command in your terminal:
+- Downdload the plugin from [Here](http://skydrop-development.s3.amazonaws.com/plugins/skydrop-woocommerce-0.1.2.zip) or clone it by typing this command in your terminal:
 
 ```
 git clone --recursive git@github.com:Skydropx/skydrop-woocommerce.git 
