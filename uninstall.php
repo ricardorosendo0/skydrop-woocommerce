@@ -2,7 +2,7 @@
 <?php
 /**
  * Uninstall - removes all options from DB when user deletes the plugin via WordPress backend.
- * @author Yaser Almasri <andres@skydrop.com.mx>
+ * @author Yaser Almasri  for future support contact <andres@skydrop.com.mx>
  * @since 0.1.1
  *
  */
