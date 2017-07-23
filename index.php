@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin name: Skydrop Woocommerce
- * Plugin URI: http://github.com/skydropx/plugin-woocommerce
+ * Plugin URI: http://github.com/Skydropx/skydrop-woocommerce
  * Description: Add skydrop local deliveries to woocommerce
  * Version: 1.0.0
  * Author: Arnoldo Rodriguez
